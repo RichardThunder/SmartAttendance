@@ -1,0 +1,2 @@
+# SmartAttendance
+Attendance using　FaceNet
