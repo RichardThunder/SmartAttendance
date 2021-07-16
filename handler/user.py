@@ -1,7 +1,7 @@
 from flask import Blueprint,request,Response,jsonify
 
 
-from api.user_api import *
+from Back.api.user_api import *
 
 user = Blueprint('user',__name__)
 

@@ -1,4 +1,4 @@
-from db_config import db_init as db
+from Back.db_config import db_init as db
 
 class worker(db.Model):
     __tablename__='worker'

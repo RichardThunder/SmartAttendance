@@ -2,9 +2,9 @@
 #一系列业务功能
 
 #导入用户操作类
-from operation.user_operation import User_Operation
+from Back.operation.user_operation import User_Operation
 
-from utils.data_process import *
+from Back.utils.data_process import *
 
 def User_transport():
     #数据验证

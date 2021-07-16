@@ -1,5 +1,5 @@
 #导入数据模型类
-from models.worker import worker
+from Back.models.worker import worker
 
 #用户模块操作类
 class User_Operation():
