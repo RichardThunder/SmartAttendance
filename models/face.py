@@ -1,5 +1,6 @@
-from Back.db_config import db_init as db
-from sqlalchemy import DateTime
+from db_config import db_init as db
+
+
 class face(db.Model):
     __tablename__='face'
     fid=db.Column(db.Integer, primary_key=True,autoincrement=True)

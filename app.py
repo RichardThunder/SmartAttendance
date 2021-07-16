@@ -1,5 +1,5 @@
-from Back.db_config import app
-from Back.handler.user import user
+from db_config import app
+from handler.user import user
 app.register_blueprint(user,url_prefix="/user")
 
 @app.route('/')

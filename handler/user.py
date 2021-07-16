@@ -1,7 +1,6 @@
-from flask import Blueprint,request,Response,jsonify
+from flask import Blueprint
 
-
-from Back.api.user_api import *
+from api.user_api import *
 
 user = Blueprint('user',__name__)
 
