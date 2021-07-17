@@ -21,7 +21,6 @@ def Class_To_Data(data_list,fields,type=0):
                     user_list[f] = datetime.datetime.strftime(d, "%Y-%m-%d %H:%M:%S ")
             else:
                 user_list[f] = getattr(data_list, f)
-
-    return jsonify(user_list)
+    return user_list
 
     

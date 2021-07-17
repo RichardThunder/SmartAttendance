@@ -5,6 +5,8 @@
 from operation.user_operation import User_Operation
 from operation.account_operation import Account_Operation
 from utils.data_process import *
+from utils.login_process import *
+import json
 
 
 def User_transport():
@@ -23,33 +25,35 @@ def User_transport():
 
 def Account_reg(kwargs):
     account_operation = Account_Operation()
-    re_data = Account_Operation._login(kwargs)
+    re_data = Account_Operation._reg(kwargs)
     return re_data
 
 
-
-def Account_login(username, password):  #use account table
-    account_Operation =Account_Operation()
+def Account_login(username, password):  # use account table
+    account_Operation = Account_Operation()
     re_data = account_Operation._login(username)
 
-    if re_data:
-        re_data = Class_To_Data(re_data, Account_Operation.__field__, 1)
-    print(re_data)
+    # re_data = json.loads(re_data)
 
+    if re_data:
+        re_data = Class_To_Data(re_data, account_Operation.__field__, 1)
     result = {
         'code': 0,
         'message': "",
         'userid': ""
     }
-
+    print(re_data)
+    print("user.api,,line46")
     if re_data:
-        if re_data.get('password') == password:
+        if re_data.get('pwd') == str(password):
             result['code'] = 0
             result['message'] = "登录成功"
-            result['userid'] = re_data.get('id')
+            result['userid'] = re_data.get('aid')
         else:
             result['code'] = -1
             result['message'] = "密码错误"
+            result['userid']=re_data.get('aid')
+
     else:
         result['code'] = -1
         result['message'] = "账户不存在"

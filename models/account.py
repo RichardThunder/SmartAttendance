@@ -9,10 +9,12 @@ class Account(db.Model):
     Identity = db.Column(db.Boolean, nullable=False)
 
     def __repr__(self):
-        return '<account %s, %s>' % (self.recordNum, self.id)
+        return '<account %s, %s>' % (self.aid, self.Identity)
 
     def set_password(self, password):
         self.pwd = generate_password_hash(password)  # 将生成的密码保持到对应字段
 
     def validate_password(self, password):  # 用于验证密码的方法，接受密码作为参数
         return check_password_hash(self.pwd, password)  # 返回布尔值
+    def __getattr__(self, item):
+        return getattr(self.data, item)
