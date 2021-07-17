@@ -12,7 +12,7 @@ def login():
     password = data.get("password")
     print(username)
     print(password)
-    result = User_login(username, password)
+    result = Account_login(username, password)
     return jsonify(result)
 
 
