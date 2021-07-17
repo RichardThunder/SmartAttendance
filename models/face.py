@@ -1,7 +1,7 @@
 from db_config import db_init as db
 
 
-class face(db.Model):
+class Face(db.Model):
     __tablename__='face'
     fid=db.Column(db.Integer, primary_key=True,autoincrement=True)
     FacePath=db.Column(db.String(255), nullable=False)

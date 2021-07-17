@@ -1,10 +1,21 @@
-from db_config import app
 from handler.user import user
+from flask import  Flask
+
+#数据库配置
+from db_config import app
+# app = Flask(__name__)
+
+# 解决跨域
+from flask_cors import CORS
+CORS(app, supports_credentials=True)
+
+#注册蓝图1 user
 app.register_blueprint(user,url_prefix="/user")
 
+#default路由配置
 @app.route('/')
 def index():
-    return 'index'
+    return 'Please visit user/login'
 
 if __name__=='__main__':
     app.run(host="127.0.0.1",port='5000',debug=True)
