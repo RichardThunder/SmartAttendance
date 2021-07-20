@@ -19,6 +19,8 @@ def login():
     print(data)
     username = data.get("username")
     password = data.get("password")
+    print(username)
+    print(password)
     result = Account_login(username, password)
     return jsonify(result)
 #########Login################
@@ -33,6 +35,7 @@ def login():
 #     "code": 0,
 #     "message": "登录成功",
 #     "userid": 1
+#     "Identity":0
 # }
 # 账户不存在
 # {
@@ -56,8 +59,8 @@ def user_reg():
     username = data.get("username")
     password = data.get("password")
     identity=data.get("Identity")
-    print(username)
-    print(password)
+    # print(username)
+    # print(password)
 
     # 形成对象形式 插入数据库
     user = {

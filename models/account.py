@@ -16,5 +16,5 @@ class Account(db.Model):
 
     def validate_password(self, password):  # 用于验证密码的方法，接受密码作为参数
         return check_password_hash(self.pwd, password)  # 返回布尔值
-    def __getattr__(self, item):
-        return getattr(self.data, item)
+    # def __getattr__(self, item):
+    #     return getattr(self.data, item)

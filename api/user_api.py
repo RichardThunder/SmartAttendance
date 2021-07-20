@@ -5,7 +5,7 @@
 from operation.user_operation import User_Operation
 from operation.account_operation import Account_Operation
 from utils.data_process import *
-from utils.login_process import *
+
 import json
 
 
@@ -40,19 +40,21 @@ def Account_login(username, password):  # use account table
     result = {
         'code': 0,
         'message': "",
-        'userid': ""
+        'userid': "",
+        'Identity': ""
     }
     print(re_data)
-    print("user.api,,line46")
+    # print("user.api,,line46")
     if re_data:
         if re_data.get('pwd') == str(password):
             result['code'] = 0
             result['message'] = "登录成功"
             result['userid'] = re_data.get('aid')
+            result['Identity']=re_data.get('Identity')
         else:
             result['code'] = -1
             result['message'] = "密码错误"
-            result['userid']=re_data.get('aid')
+            result['userid'] = re_data.get('aid')
 
     else:
         result['code'] = -1
