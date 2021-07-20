@@ -10,6 +10,6 @@ class Select_Operation():
         self.__fields__ = ['recordNum', 'id', 'CkInTime', 'CkOutTime']
 
     # 操作1 获取所有用户
-    def _add(self,username):
+    def _select(self,username):
         user_data = Attendance.query.filter(Attendance.id==username)
         return user_data
