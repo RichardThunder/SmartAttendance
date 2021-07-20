@@ -1,6 +1,7 @@
 from flask import Blueprint, request, Response, jsonify, json
 from api.user_api import *
-
+import os
+from operation.face_operation import *
 user = Blueprint('user', __name__)
 
 
@@ -80,3 +81,25 @@ def user_reg():
 #     "Identity":"0"
 # }
 # 注意检查空值,值的类型
+
+
+
+
+
+@user.route('/upload', methods=['POST', 'GET'])
+def upload():
+    if request.method == 'POST':
+        f = request.files['file']
+        basepath = os.path.dirname(__file__)
+        filepath = os.path.join(os.path.split(basepath)[0], 'static', f.filename.split('_')[0])
+        if not os.path.exists(filepath):
+            os.makedirs(filepath)
+            Face_Operation.path_insert(f.filename.split('_')[0], filepath)
+        all_files = os.listdir(filepath)
+        num = 0
+        for each_file in all_files:
+            num = num + 1
+        upload_path = os.path.join(filepath, str(num) + f.filename.split('.')[1])
+        f.save(upload_path)
+        return "succeed"
+    return "fail"
