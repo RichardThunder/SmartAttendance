@@ -274,7 +274,7 @@ def upload():
         f = request.files['file']
         #base_path = os.path.dirname(__file__)
         #filepath = os.path.join(os.path.split(base_path)[0], 'static', f.filename.split('_')[0])
-        filepath = os.path.join('..\static', f.filename.split('_')[0])
+        filepath = os.path.join('.\static', f.filename.split('_')[0])
         if not os.path.exists(filepath):
             os.makedirs(filepath)
             Face_Operation.path_insert(int(f.filename.split('_')[0]), filepath)

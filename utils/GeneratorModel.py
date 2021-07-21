@@ -16,9 +16,10 @@ rootdir = ".."
 def Generator():
     # 人脸数据所在路径
     global embedder
-    face_data = f"{rootdir}/face_dataset"
+    # face_data = f"{rootdir}/face_dataset"
+    face_data = f"../static"
     # 输出面部嵌入的序列化数据库的路径
-    embeddings = f"{rootdir}/saved_weights/embeddings.pickle"
+    embeddings = f"../saved_weights/embeddings.pickle"
     # OpenCV深度学习人脸检测器的路径
     detector_path = f"{rootdir}/model_face_detection/"
     # OpenCV深度学习面部嵌入模型的路径；Torch深度学习模型，可产生128-D面部嵌入
