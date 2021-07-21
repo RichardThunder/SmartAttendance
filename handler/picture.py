@@ -25,20 +25,10 @@ def train():
 
 @picture.route("/detect",methods=["POST","GET"])
 def detect():
-
     f = request.files['file']
-        # base_path = os.path.dirname(__file__)
-        # filepath = os.path.join(os.path.split(base_path)[0], 'static', f.filename.split('_')[0])
-        # filepath = os.path.join('.\static', f.filename.split('_')[0])
-        # if not os.path.exists(filepath):
-        #     os.makedirs(filepath)
-        #     Face_Operation.path_insert(int(f.filename.split('_')[0]), filepath)
-        # all_files = os.listdir(filepath)
-        # num = 0
-        # for each_file in all_files:
-        #     num = num + 1
-        # str_path = str(num) + '.' + f.filename.split('.')[1]
-        # upload_path = os.path.join(filepath, Path(str_path))
     f.save("./1.jpg")
-
     return load_model(f)
+#############################
+# 请求: file:文件.jpg
+# 返回 打卡人ID
+#############################
