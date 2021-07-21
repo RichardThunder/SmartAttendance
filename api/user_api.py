@@ -12,6 +12,7 @@ from operation.select_name_operation import *
 from operation.select_gender_operation import *
 from operation.select_contact_operation import *
 from operation.select_department_operation import *
+from operation.change_operation import *
 import json
 
 
@@ -121,3 +122,8 @@ def select_contact_api(usercontact):
 
     result = Class_To_Data(result_data, user_p.__fields__)
     return jsonify(result)
+
+
+def change(worker, id):
+    re_data = Change_Operation._change(worker,id)
+    return jsonify(re_data)

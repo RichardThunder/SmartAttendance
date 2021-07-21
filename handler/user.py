@@ -2,6 +2,8 @@ from flask import Blueprint, request, Response, jsonify, json
 from api.user_api import *
 import os
 from operation.face_operation import *
+from pathlib import Path
+
 
 user = Blueprint('user', __name__)
 
@@ -265,20 +267,74 @@ def select_contact():
 #     }
 # ]
 
+
 @user.route('/upload', methods=['POST', 'GET'])
 def upload():
     if request.method == 'POST':
         f = request.files['file']
-        basepath = os.path.dirname(__file__)
-        filepath = os.path.join(os.path.split(basepath)[0], 'static', f.filename.split('_')[0])
+        #base_path = os.path.dirname(__file__)
+        #filepath = os.path.join(os.path.split(base_path)[0], 'static', f.filename.split('_')[0])
+        filepath = os.path.join('..\static', f.filename.split('_')[0])
         if not os.path.exists(filepath):
             os.makedirs(filepath)
-            Face_Operation.path_insert(f.filename.split('_')[0], filepath)
+            Face_Operation.path_insert(int(f.filename.split('_')[0]), filepath)
         all_files = os.listdir(filepath)
         num = 0
         for each_file in all_files:
             num = num + 1
-        upload_path = os.path.join(filepath, str(num) + f.filename.split('.')[1])
+        str_path = str(num) + '.' + f.filename.split('.')[1]
+        upload_path = os.path.join(filepath, Path(str_path))
         f.save(upload_path)
-        return "succeed"
-    return "fail"
+        return jsonify("1")
+    return jsonify("0")
+
+####################
+
+
+
+
+######################
+
+
+
+
+
+
+@user.route('/change_worker', methods = ["POST"])
+def change_worker():
+    data = json.loads(request.get_data(as_text=True))
+    # data.get("属性名")
+    id = data.get("id")
+    name = data.get("name")
+    gender = data.get("gender")
+    department = data.get("department")
+    contact = data.get("contact")
+    print("id")
+    print("name")
+    print("gender")
+    print("department")
+    print("contact")
+    worker = {
+        'id': id,
+        'name': name,
+        'gender': gender,
+        'department': department,
+        'contact': contact
+
+    }
+    result = change(worker, id)
+    return result
+#################
+# {
+#     "id":5,
+#     "name":"gxx",
+#     "gender":"m",
+#     "department":"A",
+#     "contact":"huxixi"
+# }
+#
+# {
+#     "code": 0,
+#     "message": "success"
+# }
+#################

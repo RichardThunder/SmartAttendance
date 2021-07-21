@@ -13,3 +13,4 @@ class Face_Operation():
         us = Face(fid=iid, FacePath=ipath)
         db.session.add(us)
         db.session.commit()
+        print(iid, ipath)
