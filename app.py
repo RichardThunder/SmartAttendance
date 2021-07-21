@@ -1,6 +1,6 @@
 from handler.user import user
 from flask import  Flask
-from handler.picture import picture
+#from handler.picture import picture
 
 #数据库配置
 from db_config import app
