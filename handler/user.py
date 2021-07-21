@@ -84,6 +84,84 @@ def user_reg():
 
 
 
+@user.route('/select',methods=['POST'])
+def select():
+    data = json.loads(request.get_data(as_text=True))
+    # data.get("属性名")
+    username = data.get("username")
+    print(username)
+    data = select_api(username)
+    return data
+
+@user.route('/add',methods=['POST'])
+def add():
+    data = json.loads(request.get_data(as_text=True))
+    # data.get("属性名")
+    id = data.get("id")
+    name = data.get("name")
+    gender = data.get("gender")
+    department = data.get("department")
+    contact = data.get("contact")
+    print("id")
+    print("name")
+    print("gender")
+    print("department")
+    print("contact")
+    worker = {
+        'id': id,
+        'name': name,
+        'gender': gender,
+        'department': department,
+        'contact': contact
+
+    }
+    result = Worker_contact(worker)
+    return jsonify(result)
+
+@user.route('/select_id', methods = ["GET"])
+def select_id():
+    data = json.loads(request.get_data(as_text=True))
+    # data.get("属性名")
+    userid = data.get("userid")
+    print(userid)
+    data = select_id_api(userid)
+    return data
+
+@user.route('/select_name', methods = ["GET"])
+def select_name():
+    data = json.loads(request.get_data(as_text=True))
+    # data.get("属性名")
+    username = data.get("username")
+    print(username)
+    data = select_name_api(username)
+    return data
+
+@user.route('/select_gender', methods = ["GET"])
+def select_gender():
+    data = json.loads(request.get_data(as_text=True))
+    # data.get("属性名")
+    usergender = data.get("usergender")
+    print(usergender)
+    data = select_gender_api(usergender)
+    return data
+
+@user.route('/select_department', methods = ["GET"])
+def select_department():
+    data = json.loads(request.get_data(as_text=True))
+    # data.get("属性名")
+    userdepartment = data.get("userdepartment")
+    print(userdepartment)
+    data = select_department_api(userdepartment)
+    return data
+
+@user.route('/select_contact', methods = ["GET"])
+def select_contact():
+    data = json.loads(request.get_data(as_text=True))
+    # data.get("属性名")
+    usercontact = data.get("usercontact")
+    print(usercontact)
+    data = select_contact_api(usercontact)
+    return data
 
 
 @user.route('/upload', methods=['POST', 'GET'])
@@ -103,3 +181,6 @@ def upload():
         f.save(upload_path)
         return "succeed"
     return "fail"
+
+
+
