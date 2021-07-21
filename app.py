@@ -13,7 +13,7 @@ CORS(app, supports_credentials=True)
 #注册蓝图1 user
 app.register_blueprint(user,url_prefix="/user")
 
-app.register_blueprint(picture,url_prefix="/picture")
+#app.register_blueprint(picture,url_prefix="/picture")
 
 #default路由配置
 @app.route('/')
