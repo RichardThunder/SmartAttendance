@@ -5,7 +5,13 @@
 from operation.user_operation import User_Operation
 from operation.account_operation import Account_Operation
 from utils.data_process import *
-
+from operation.select_operation import *
+from operation.add_operation import *
+from operation.select_id_operation import *
+from operation.select_name_operation import *
+from operation.select_gender_operation import *
+from operation.select_contact_operation import *
+from operation.select_department_operation import *
 import json
 
 
@@ -50,7 +56,7 @@ def Account_login(username, password):  # use account table
             result['code'] = 0
             result['message'] = "登录成功"
             result['userid'] = re_data.get('aid')
-            result['Identity']=re_data.get('Identity')
+            result['Identity'] = re_data.get('Identity')
         else:
             result['code'] = -1
             result['message'] = "密码错误"
@@ -61,13 +67,15 @@ def Account_login(username, password):  # use account table
         result['message'] = "账户不存在"
     return result
 
+
 def select_api(username):
-    #查询历史打卡记录
+    # 查询历史打卡记录
     user_p = Select_Operation()
     result_data = user_p._select(username)
 
     result = Class_To_Data(result_data, user_p.__fields__)
-    return result
+    return jsonify(result)
+
 
 def Worker_contact(kwargs):
     account_operation = Add_Operation()
@@ -80,32 +88,36 @@ def select_id_api(userid):
     result_data = user_p._select_id(userid)
 
     result = Class_To_Data(result_data, user_p.__fields__)
-    return result
+    return jsonify(result)
+
 
 def select_name_api(username):
     user_p = select_name_operation()
     result_data = user_p._select_name(username)
 
     result = Class_To_Data(result_data, user_p.__fields__)
-    return result
+    return jsonify(result)
+
 
 def select_gender_api(usergender):
     user_p = select_gender_operation()
     result_data = user_p._select_gender(usergender)
 
     result = Class_To_Data(result_data, user_p.__fields__)
-    return result
+    return jsonify(result)
+
 
 def select_department_api(userdepartment):
     user_p = select_department_operation()
     result_data = user_p._select_department(userdepartment)
 
     result = Class_To_Data(result_data, user_p.__fields__)
-    return result
+    return jsonify(result)
+
 
 def select_contact_api(usercontact):
     user_p = select_contact_operation()
     result_data = user_p._select_contact(usercontact)
 
     result = Class_To_Data(result_data, user_p.__fields__)
-    return result
+    return jsonify(result)

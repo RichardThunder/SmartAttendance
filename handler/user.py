@@ -2,9 +2,8 @@ from flask import Blueprint, request, Response, jsonify, json
 from api.user_api import *
 import os
 from operation.face_operation import *
+
 user = Blueprint('user', __name__)
-
-
 
 
 @user.route("/transport", methods=["GET"])
@@ -24,6 +23,8 @@ def login():
     print(password)
     result = Account_login(username, password)
     return jsonify(result)
+
+
 #########Login################
 # http://127.0.0.1:5000/user/login
 # 示例
@@ -44,7 +45,7 @@ def login():
 #     "message": "账户不存在",
 #     "userid": ""
 # }
-#密码错误
+# 密码错误
 # {
 #     "code": -1,
 #     "message": "密码错误",
@@ -59,7 +60,7 @@ def user_reg():
     # data.get("属性名")
     username = data.get("username")
     password = data.get("password")
-    identity=data.get("Identity")
+    identity = data.get("Identity")
     # print(username)
     # print(password)
 
@@ -71,9 +72,11 @@ def user_reg():
     }
     result = Account_reg(user)
     return jsonify(result)
+
+
 #########______reg注册_________##########
 # http POST 方法
-#http://127.0.0.1:5000/user/reg
+# http://127.0.0.1:5000/user/reg
 # 请求实例:
 # {
 #     "username":3,
@@ -83,8 +86,7 @@ def user_reg():
 # 注意检查空值,值的类型
 
 
-
-@user.route('/select',methods=['POST'])
+@user.route('/select', methods=['POST'])
 def select():
     data = json.loads(request.get_data(as_text=True))
     # data.get("属性名")
@@ -92,8 +94,22 @@ def select():
     print(username)
     data = select_api(username)
     return data
+######################
+# {
+#     "username": 1
+# }
+###################
+# [
+#     {
+#         "CkInTime": "Fri, 16 Jul 2021 10:12:29 GMT",
+#         "CkOutTime": "Sat, 17 Jul 2021 10:12:32 GMT",
+#         "id": 1,
+#         "recordNum": 1
+#     }
+# ]
+#
 
-@user.route('/add',methods=['POST'])
+@user.route('/add', methods=['POST'])
 def add():
     data = json.loads(request.get_data(as_text=True))
     # data.get("属性名")
@@ -117,8 +133,22 @@ def add():
     }
     result = Worker_contact(worker)
     return jsonify(result)
+########################
+# {
+#     "id":3,
+#     "name":"gxx",
+#     "gender":"fm",
+#     "department":"ccp",
+#     "contact":"gxx"
+# }
+#########################
+# {
+#     "code": 0,
+#     "message": "success"
+# }
 
-@user.route('/select_id', methods = ["GET"])
+
+@user.route('/select_id', methods=["GET"])
 def select_id():
     data = json.loads(request.get_data(as_text=True))
     # data.get("属性名")
@@ -126,8 +156,23 @@ def select_id():
     print(userid)
     data = select_id_api(userid)
     return data
+#######################
+# {
+#     "userid":1
+# }
+# #######################
+# [
+#     {
+#         "contact": "2079265227",
+#         "department": "A",
+#         "gender": "M",
+#         "id": 1,
+#         "name": "richard"
+#     }
+# ]
 
-@user.route('/select_name', methods = ["GET"])
+
+@user.route('/select_name', methods=["GET"])
 def select_name():
     data = json.loads(request.get_data(as_text=True))
     # data.get("属性名")
@@ -135,8 +180,23 @@ def select_name():
     print(username)
     data = select_name_api(username)
     return data
+########################
+# {
+#     "username":"gxx"
+# }
+######################
+# [
+#     {
+#         "contact": "gxx",
+#         "department": "ccp",
+#         "gender": "fm",
+#         "id": 2,
+#         "name": "gxx"
+#     }
+# ]
 
-@user.route('/select_gender', methods = ["GET"])
+
+@user.route('/select_gender', methods=["GET"])
 def select_gender():
     data = json.loads(request.get_data(as_text=True))
     # data.get("属性名")
@@ -144,8 +204,22 @@ def select_gender():
     print(usergender)
     data = select_gender_api(usergender)
     return data
+#####################
+# {
+#     "usergender":"M"
+# }
+####################
+# [
+#     {
+#         "contact": "2079265227",
+#         "department": "A",
+#         "gender": "M",
+#         "id": 1,
+#         "name": "richard"
+#     }
+# ]
 
-@user.route('/select_department', methods = ["GET"])
+@user.route('/select_department', methods=["GET"])
 def select_department():
     data = json.loads(request.get_data(as_text=True))
     # data.get("属性名")
@@ -153,8 +227,22 @@ def select_department():
     print(userdepartment)
     data = select_department_api(userdepartment)
     return data
+#########################
+# {
+#     "userdepartment":"ccp"
+# }
+#########################
+# [
+#     {
+#         "contact": "gxx",
+#         "department": "ccp",
+#         "gender": "fm",
+#         "id": 2,
+#         "name": "gxx"
+#     }
+# ]
 
-@user.route('/select_contact', methods = ["GET"])
+@user.route('/select_contact', methods=["GET"])
 def select_contact():
     data = json.loads(request.get_data(as_text=True))
     # data.get("属性名")
@@ -162,7 +250,20 @@ def select_contact():
     print(usercontact)
     data = select_contact_api(usercontact)
     return data
-
+#####################
+# {
+#     "usercontact":"gxx"
+# }
+#####################
+# [
+#     {
+#         "contact": "gxx",
+#         "department": "ccp",
+#         "gender": "fm",
+#         "id": 2,
+#         "name": "gxx"
+#     }
+# ]
 
 @user.route('/upload', methods=['POST', 'GET'])
 def upload():
@@ -181,6 +282,3 @@ def upload():
         f.save(upload_path)
         return "succeed"
     return "fail"
-
-
-
