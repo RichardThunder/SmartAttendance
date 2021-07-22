@@ -499,12 +499,12 @@ def select_attendance_date():
     data = select_attendance_date_api(start_date, end_date)
     return data
 
-@user.route('checkinout', methods=['POST'])
+@user.route('/checkinout', methods=['POST'])
 def check_in_out():
     if request.method == 'POST':
         data = json.loads(request.data)
         iid = data.get("id")
-        check_time = datetime.now()
+        check_time = datetime.datetime.now()
         filepath = os.path.join('./check_data', Path(str(iid)))
         if not os.path.exists(filepath):
             os.makedirs(filepath)
@@ -515,7 +515,7 @@ def check_in_out():
             all_files = os.listdir(filepath)
             for each_file in all_files:
                 file_str = each_file.split('A')[0] + ':' + each_file.split('A')[1] + ':' + each_file.split('A')[2]
-                Add_attendence.path_insert(iid, datetime.strptime(file_str.split('.')[0], '%Y-%m-%d %H:%M:%S'), check_time)
+                Add_attendence.path_insert(iid, datetime.datetime.strptime(file_str.split('.')[0], '%Y-%m-%d %H:%M:%S'), check_time)
             shutil.rmtree(filepath)
         return jsonify("1")
     return jsonify("0")
