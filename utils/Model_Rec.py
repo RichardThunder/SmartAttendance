@@ -25,7 +25,7 @@ def add_path_to_sys():
 rootdir = add_path_to_sys()
 
 
-def load_model(f): #人脸检测
+def load_model(): #人脸检测
     # 人脸检测的置信度
     confidence_default = 0.8
     # 从磁盘加载序列化面部检测器
@@ -55,6 +55,7 @@ def load_model(f): #人脸检测
     face_name_dict = dict(zip(le.classes_, len(le.classes_) * [0]))
 
     img = cv2.imread("./1.jpg")
+    #img = cv2.imread(f)
     img=imutils.resize(img,width=900)
     (h,w)=img.shape[:2]
     # 从图像构造一个blob, 缩放为 300 x 300 x 3 像素的图像，为了符合ResNet-SSD的输入尺寸

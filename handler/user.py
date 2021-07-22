@@ -1,9 +1,14 @@
+import datetime
+from datetime import time
+
 from flask import Blueprint, request, Response, jsonify, json
 from api.user_api import *
 import os
+
+from operation.add_attendence import Add_attendence
 from operation.face_operation import *
 from pathlib import Path
-
+import shutil
 
 user = Blueprint('user', __name__)
 
@@ -338,3 +343,25 @@ def change_worker():
 #     "message": "success"
 # }
 #################
+
+
+@user.route('checkinout', methods=['POST'])
+def check_in_out():
+    if request.method == 'POST':
+        data = json.loads(request.data)
+        iid = data.get("id")
+        check_time = datetime.now()
+        filepath = os.path.join('./check_data', Path(str(iid)))
+        if not os.path.exists(filepath):
+            os.makedirs(filepath)
+            str_c = str(check_time)
+            file_str = str_c.split(':')[0] + 'A' + str_c.split(':')[1] + 'A' + str_c.split(':')[2]
+            shutil.copy('./check_data/check.data', os.path.join(filepath, Path(file_str)))
+        else:
+            all_files = os.listdir(filepath)
+            for each_file in all_files:
+                file_str = each_file.split('A')[0] + ':' + each_file.split('A')[1] + ':' + each_file.split('A')[2]
+                Add_attendence.path_insert(iid, datetime.strptime(file_str.split('.')[0], '%Y-%m-%d %H:%M:%S'), check_time)
+            shutil.rmtree(filepath)
+        return jsonify("1")
+    return jsonify("0")
