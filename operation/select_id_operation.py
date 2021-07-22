@@ -7,7 +7,7 @@ from db_config import db_init as db
 class select_id_operation():
     # 应该映射到user表的字段
     def __init__(self):
-        self.__fields__ = ['id', 'name', 'gender', 'department', 'contact']
+        self.__fields__ = ['id', 'name', 'gender', 'department', 'contact', 'company']
 
     def _select_id(self, userid):
         user_data = Worker.query.filter(Worker.id == userid)

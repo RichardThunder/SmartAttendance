@@ -7,7 +7,7 @@ from db_config import db_init as db
 class select_contact_operation():
     # 应该映射到user表的字段
     def __init__(self):
-        self.__fields__ = ['id', 'name', 'gender', 'department', 'contact']
+        self.__fields__ = ['id', 'name', 'gender', 'department', 'contact', 'company']
 
     def _select_contact(self, usercontact):
         user_data = Worker.query.filter(Worker.contact == usercontact)

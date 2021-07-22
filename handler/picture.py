@@ -27,8 +27,23 @@ def train():
 def detect():
     f = request.files['file']
     f.save("./1.jpg")
-    return load_model(f)
+    return load_model()
 #############################
 # 请求: file:文件.jpg
 # 返回 打卡人ID
 #############################
+
+@picture.route("/get_weights",methods=["GET"])
+def get_weights():
+    startdir = "./saved_weights"  # 要压缩的文件夹路径
+    file_news = startdir + '.zip'  # 压缩后文件夹的名字
+    zip_Dir(startdir, file_news)
+    response = make_response(
+        send_from_directory(".", "saved_weights.zip", as_attachment=True))
+    print("get_weights success")
+    return response
+#################################
+# get请求
+# 返回saved_weights.zip 更新weights文件
+# 每次打开默认请求更新
+#################################
