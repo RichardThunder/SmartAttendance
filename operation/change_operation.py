@@ -5,16 +5,12 @@ from db_config import db_init as db
 
 class Change_Operation():
     def __init__(self):
-        self.__fields__ = ['id', 'name', 'gender', 'department', 'contact']
+        self.__fields__ = ['id', 'name', 'gender', 'department', 'contact', 'company']
 
 
     def _change(worker, id):
         # 数据模型类 创建对象
         user_data = Worker.query.filter(Worker.id == id).first()
-        # print("1")
-        # print(user_data)
-        # print("2")
-        # if user_data
         db.session.delete(user_data)
         db.session.commit()
         me = Worker(**worker)
