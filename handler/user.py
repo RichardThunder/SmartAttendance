@@ -16,6 +16,14 @@ def transport():
     data = User_transport()
     return jsonify(data)
 
+
+
+@user.route("/selectcompany", methods=["GET"])
+def selectcompany():
+    # 调用user_api功能方法返回需要的数据
+    data = User_attendance()
+    return jsonify(data)
+
 @user.route("/select_company_user", methods=["GET"])
 def select_company_user():
     # 调用user_api功能方法返回需要的数据
@@ -519,3 +527,18 @@ def check_in_out():
             shutil.rmtree(filepath)
         return jsonify("1")
     return jsonify("0")
+
+@user.route("/user_id", methods=["GET"])
+def user_id():
+    # 调用user_api功能方法返回需要的数据
+    data = User_id()
+    return jsonify(data)
+
+@user.route('/selectattendance', methods=['POST'])
+def selectattendance():
+    data = json.loads(request.get_data(as_text=True))
+    # data.get("属性名")
+    username = data.get("username")
+    print(username)
+    data = selectattendance_api(username)
+    return data

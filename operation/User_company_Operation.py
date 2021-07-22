@@ -9,7 +9,7 @@ from db_config import db_init as db
 class User_company_Operation():
     # 应该映射到user表的字段
     def __init__(self):
-        self.__fields__ = ['aid', 'companyname', 'department']
+        self.__fields__ = ['companyname', 'department']
 
     # 操作1 获取所有用户
     def _all_company(self):

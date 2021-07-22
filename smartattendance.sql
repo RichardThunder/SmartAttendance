@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account`  (
-  `aid` int(0) NOT NULL,
+  `` int(0) NOT NULL,
   `pwd` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Identity` tinyint(1) NOT NULL,
   PRIMARY KEY (`aid`) USING BTREE

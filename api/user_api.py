@@ -2,6 +2,9 @@
 # 一系列业务功能
 
 # 导入用户操作类
+from operation.Selectattendance_Operation import Selectattendance_Operation
+from operation.User_attendance_Operation import User_attendance_Operation
+from operation.User_id_Operation import User_id_Operation
 from operation.user_operation import User_Operation
 from operation.account_operation import Account_Operation
 from utils.data_process import *
@@ -41,6 +44,13 @@ def User_transport():
     result = Class_To_Data(result_data, user_p.__fields__)
     return result
 
+
+def User_attendance():
+    user_p = User_attendance_Operation()
+    result_data = user_p._all_attendance()
+
+    result = Class_To_Data(result_data, user_p.__fields__)
+    return result
 
 def User_company():
     user_p = User_company_Operation()
@@ -206,6 +216,21 @@ def select_department_and_company_api(userdepartment, usercompany):
 def select_attendance_date_api(start_date, end_date):
     user_p = select_attendance_date_operation()
     result_data = user_p._select_attendance_date(start_date, end_date)
+
+    result = Class_To_Data(result_data, user_p.__fields__)
+    return jsonify(result)
+
+def User_id():
+
+    user_p = User_id_Operation()
+    result_data = user_p._all_id()
+
+    result = Class_To_Data(result_data, user_p.__fields__)
+    return result
+
+def selectattendance_api(username):
+    user_p = Selectattendance_Operation()
+    result_data = user_p._selectattendance(username)
 
     result = Class_To_Data(result_data, user_p.__fields__)
     return jsonify(result)
