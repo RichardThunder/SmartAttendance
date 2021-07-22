@@ -27,7 +27,9 @@ def train():
 def detect():
     f = request.files['file']
     f.save("./1.jpg")
-    return load_model(f)
+    Id=load_model(f)
+    #operation(Id)
+    return Id
 #############################
 # 请求: file:文件.jpg
 # 返回 打卡人ID

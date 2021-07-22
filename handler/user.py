@@ -3,7 +3,9 @@ from api.user_api import *
 import os
 from operation.face_operation import *
 from pathlib import Path
-
+import shutil
+from operation.add_attendence import *
+import time
 
 user = Blueprint('user', __name__)
 
@@ -434,3 +436,25 @@ def select_attendance_date():
     print(end_date)
     data = select_attendance_date_api(start_date, end_date)
     return data
+
+
+@user.route('/__check', methods=['POST'])
+def check_in_out():
+    if request.method == 'POST':
+        data = json.loads(request.get_data(as_text=True))
+        iid = data.get("id")
+        cktm = data.get("cktm")
+        filepath = os.path.join('.\check_data', Path(iid))
+        if not os.path.exists(filepath):
+            os.makedirs(filepath)
+            f = open("checkdata","rb")
+            f.save(os.path.join(filepath, Path(cktm)))
+        else:
+            all_files = os.listdir(filepath)
+            for each_file in all_files:
+                Add_attendence.path_insert(iid,time(each_file),cktm)
+            shutil.rmtree(filepath)
+        return jsonify("1")
+    return jsonify("0")
+
+
