@@ -2,7 +2,8 @@ from db_config import db_init as db
 
 class Company(db.Model):
     __tablename__ = 'company'
-    companyname = db.Column(db.String(255), primary_key=True)
+    aid = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    companyname = db.Column(db.String(255), nullable=False)
     department = db.Column(db.String(255), nullable=True)
 
 

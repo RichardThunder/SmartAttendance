@@ -21,8 +21,11 @@ from operation.select_department_and_company_operation import *
 from operation.select_attendance_date_operation import *
 from operation.select_company_operation import *
 from operation.User_company_Operation import *
+from operation.Change_company_department_Operation import *
+from operation.Change_company_company_Operation import *
+from operation.delete_company_Operation import *
+from operation.delete_worker_Operation import *
 import json
-
 
 
 def User_transport():
@@ -149,6 +152,22 @@ def select_company_api(usercompany):
 
 def change(worker, id):
     re_data = Change_Operation._change(worker,id)
+    return jsonify(re_data)
+
+def change_company_department_api(company, department, companyname, fordepartment):
+    re_data = Change_company_department_Operation._change_company_department(company, department, companyname, fordepartment)
+    return jsonify(re_data)
+
+def change_company_company_api(company, department, companyname, forcompany):
+    re_data = Change_company_company_Operation._change_company_company(company, department, companyname, forcompany)
+    return jsonify(re_data)
+
+def delete_company_api(department, companyname):
+    re_data = delete_company_Operation._delete_company(department, companyname)
+    return jsonify(re_data)
+
+def delete_worker_api(id):
+    re_data = delete_worker_Operation._delete_worker(id)
     return jsonify(re_data)
 
 def company_contact(kwargs):

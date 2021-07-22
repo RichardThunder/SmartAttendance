@@ -3,7 +3,9 @@ from api.user_api import *
 import os
 from operation.face_operation import *
 from pathlib import Path
-
+import shutil
+import datetime
+from operation.add_attendence import *
 
 user = Blueprint('user', __name__)
 
@@ -370,6 +372,68 @@ def change_worker():
 # }
 #################
 
+@user.route('/change_company_bydepartment', methods = ["POST"])
+def change_company_bydepartment():
+    data = json.loads(request.get_data(as_text=True))
+    # data.get("属性名")
+    department = data.get("department")
+    companyname = data.get("companyname")
+    fordepartment = data.get("fordepartment")
+
+    print("department")
+    print("companyname")
+    print("fordepartment")
+
+    company = {
+        'department': department,
+        'companyname': companyname
+    }
+    result = change_company_department_api(company, department, companyname, fordepartment)
+    return result
+
+@user.route('/change_company_bycompany', methods = ["POST"])
+def change_company_bycompany():
+    data = json.loads(request.get_data(as_text=True))
+    # data.get("属性名")
+    department = data.get("department")
+    companyname = data.get("companyname")
+    forcompany = data.get("forcompany")
+
+    print("department")
+    print("companyname")
+    print("forcompany")
+
+    company = {
+        'department': department,
+        'companyname': companyname
+    }
+    result = change_company_company_api(company, department, companyname, forcompany)
+    return result
+
+@user.route('/delete_company', methods = ["POST"])
+def delete_company():
+    data = json.loads(request.get_data(as_text=True))
+    # data.get("属性名")
+    department = data.get("department")
+    companyname = data.get("companyname")
+
+    print("department")
+    print("companyname")
+
+    result = delete_company_api(department, companyname)
+    return result
+
+@user.route('/delete_worker', methods = ["POST"])
+def delete_worker():
+    data = json.loads(request.get_data(as_text=True))
+    # data.get("属性名")
+    id = data.get("id")
+
+    print("id")
+
+    result = delete_worker_api(id)
+    return result
+
 @user.route('/Add_Company', methods=['POST'])
 def Add_Company():
     data = json.loads(request.get_data(as_text=True))
@@ -434,3 +498,24 @@ def select_attendance_date():
     print(end_date)
     data = select_attendance_date_api(start_date, end_date)
     return data
+
+@user.route('checkinout', methods=['POST'])
+def check_in_out():
+    if request.method == 'POST':
+        data = json.loads(request.data)
+        iid = data.get("id")
+        check_time = datetime.now()
+        filepath = os.path.join('./check_data', Path(str(iid)))
+        if not os.path.exists(filepath):
+            os.makedirs(filepath)
+            str_c = str(check_time)
+            file_str = str_c.split(':')[0] + 'A' + str_c.split(':')[1] + 'A' + str_c.split(':')[2]
+            shutil.copy('./check_data/check.data', os.path.join(filepath, Path(file_str)))
+        else:
+            all_files = os.listdir(filepath)
+            for each_file in all_files:
+                file_str = each_file.split('A')[0] + ':' + each_file.split('A')[1] + ':' + each_file.split('A')[2]
+                Add_attendence.path_insert(iid, datetime.strptime(file_str.split('.')[0], '%Y-%m-%d %H:%M:%S'), check_time)
+            shutil.rmtree(filepath)
+        return jsonify("1")
+    return jsonify("0")

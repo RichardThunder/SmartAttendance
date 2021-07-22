@@ -10,5 +10,6 @@ class select_company_operation():
         self.__fields__ = ['id', 'name', 'gender', 'department', 'contact', 'company']
 
     def _select_company(self, usercompany):
+
         user_data = Worker.query.filter(Worker.company == usercompany)
         return user_data
